@@ -11,7 +11,17 @@ use App\Model\Files as FilesModel;
 class MainController extends Controller
 {
     public function index(Request $request) {
-
+        $fileMaxSize = env('FILE_MAX_SIZE', 30);
+        $fileExpireTime = env('FILE_EXPIRE_TIME', 6);
+        return response()->view(
+            'main/index',
+            [
+                'sitename' => '网络闪存',
+                'fileMaxSize' => $fileMaxSize,
+                'fileExpireTime' => $fileExpireTime,
+            ],
+            200
+        );
     }
 
     public function upload(Request $request, $t = null) {
@@ -19,12 +29,12 @@ class MainController extends Controller
         $fileExpireTime = env('FILE_EXPIRE_TIME', 6);
         try {
             if (!$request->file('o')) {
-                throw new Exception('no file input');
+                throw new Exception('请选择要上传的文件!');
             }
             $data = [];
             $data['size'] = $request->file('o')->getClientSize();
             if ($data['size'] > $fileMaxSize * 1024 * 1024) {
-                throw new Exception('File size limit: '.$fileMaxSize.'MB');
+                throw new Exception('文件大小限制: '.$fileMaxSize.'MB');
             }
             $data['filename'] = $request->file('o')->getClientOriginalName();
             $data['mime'] = $request->file('o')->getClientMimeType();
@@ -35,7 +45,7 @@ class MainController extends Controller
             }
             $file = FilesModel::create($data);
             if ($t != 'api') {
-                return redirect('/')->with('status1', 'Upload Success!');
+                return redirect('/')->with('status1', '上传成功! 你的提取码是: <span>'.$file->code.'</span>');
             } else {
                 return response()->json([
                     'status' => true,
@@ -61,7 +71,7 @@ class MainController extends Controller
         if ($file) {
             return Storage::download($file->path, $file->filename);
         } else {
-            return response('File does not exist.');
+            return redirect('/')->with('status0', '提取码不存在');
         }
     }
 }
