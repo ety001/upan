@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Log;
 use Exception;
-use Illuminate\Support\Str;
 use App\Model\Files as FilesModel;
 
 class MainController extends Controller
@@ -54,6 +53,15 @@ class MainController extends Controller
                     'error' => $e->getMessage(),
                 ]);
             }
+        }
+    }
+
+    public function getFile(Request $request, $code) {
+        $file = FilesModel::where('code', $code)->first();
+        if ($file) {
+            return Storage::download($file->path, $file->filename);
+        } else {
+            return response('File does not exist.');
         }
     }
 }

@@ -13,3 +13,4 @@
 
 Route::get('/', 'MainController@index')->name('main_index');
 Route::post('/upload/{t?}', 'MainController@upload')->name('main_upload');
+Route::get('/file/{code}', 'MainController@getFile')->name('main_getfile');
