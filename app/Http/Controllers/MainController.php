@@ -69,7 +69,7 @@ class MainController extends Controller
     public function getFile(Request $request, $code) {
         $file = FilesModel::where('code', $code)->first();
         if ($file) {
-            return Storage::download($file->path, urlencode($file->filename));
+            return Storage::download($file->path, $file->filename, []);
         } else {
             return redirect('/')->with('status0', '提取码不存在');
         }
