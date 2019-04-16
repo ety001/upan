@@ -69,7 +69,20 @@ class MainController extends Controller
     public function getFile(Request $request, $code) {
         $file = FilesModel::where('code', $code)->first();
         if ($file) {
-            return Storage::download($file->path, $file->filename, []);
+            // $size = Storage::size($file->path);
+            // required
+            header('Pragma: public');
+            //no cache
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+            header('Cache-Control: private',false);
+            //强制下载
+            header('Content-Type:application/force-download');
+            header('Content-Disposition: attachment; filename="'.basename($file->filename).'"');
+            header('Content-Transfer-Encoding: binary');
+            header('Connection: close');
+            echo Storage::get($file->path);
+            exit();
         } else {
             return redirect('/')->with('status0', '提取码不存在');
         }
