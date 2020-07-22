@@ -33,7 +33,7 @@ class MainController extends Controller
             }
             $data = [];
             $data['size'] = $request->file('o')->getClientSize();
-            if ($data['size'] > $fileMaxSize * 1024 * 1024) {
+            if ($data['size'] > (int)$fileMaxSize * 1024 * 1024) {
                 throw new Exception('文件大小限制: '.$fileMaxSize.'MB');
             }
             $data['filename'] = $request->file('o')->getClientOriginalName();
