@@ -59,7 +59,7 @@
             </div>
             <div class="row">
                 <div class="col col-md-6 offset-md-3 text-center">
-                @ <a href="https://blog.domyself.me">ety001</a>
+                @ <a href="https://akawa.ink">ety001</a>
                 </div>
             </div>
         </div>
