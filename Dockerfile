@@ -18,4 +18,7 @@ RUN apk add --no-cache php7-xmlwriter php7-tokenizer php7-pdo \
 
 USER nobody
 RUN composer install --optimize-autoloader --no-dev --no-interaction --no-progress && \
-    php artisan storage:link
+    php artisan storage:link && \
+    sed -ri 's/upload_max_filesize\ =\ 2M/upload_max_filesize\ =\ 200M/' /etc/php7/php.ini && \
+    sed -ri 's/max_execution_time\ =\ 30/max_execution_time\ =\ 600/' /etc/php7/php.ini && \
+    sed -ri 's/post_max_size\ =\ 8M/post_max_size\ =\ 200M/' /etc/php7/php.ini
