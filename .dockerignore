@@ -1,0 +1,42 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+README.md
+*.md
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Legacy
+legacy/
+
+# Storage (will be mounted as volumes)
+storage/files/*
+storage/db/*
+!storage/files/.gitkeep
+!storage/db/.gitkeep
+
+# Node (for frontend)
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Build artifacts
+dist
+build
+*.log
+
