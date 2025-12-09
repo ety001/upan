@@ -21,14 +21,17 @@ README.md
 .DS_Store
 Thumbs.db
 
-# Legacy
-legacy/
-
 # Storage (will be mounted as volumes)
 storage/files/*
 storage/db/*
 !storage/files/.gitkeep
 !storage/db/.gitkeep
+
+# Backend storage (test files)
+backend/storage/files/*
+backend/storage/db/*
+!backend/storage/files/.gitkeep
+!backend/storage/db/.gitkeep
 
 # Node (for frontend)
 node_modules
@@ -40,3 +43,6 @@ dist
 build
 *.log
 
+# Old Dockerfiles (keep for reference)
+Dockerfile.backend
+Dockerfile.frontend

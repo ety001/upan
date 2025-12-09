@@ -68,12 +68,17 @@ npm run dev
 
 ### 构建和运行
 
+项目已配置为单容器部署，使用 supervisor 管理前后端进程：
+
 ```bash
-# 构建并启动所有服务
+# 构建并启动服务
 docker-compose up -d --build
 
 # 查看日志
 docker-compose logs -f
+
+# 查看 supervisor 状态
+docker-compose exec app supervisorctl status
 
 # 停止服务
 docker-compose down
@@ -81,8 +86,15 @@ docker-compose down
 
 ### 访问
 
-- 前端: http://localhost
-- 后端 API: http://localhost:8080
+- 应用: http://localhost
+- API: http://localhost/api
+
+### 单容器部署
+
+前后端已打包为一个 Docker 镜像，使用 supervisor 管理：
+- 后端服务运行在容器内的 8080 端口
+- 前端由 nginx 提供服务，并代理后端 API
+- 所有进程由 supervisor 统一管理，自动重启
 
 ## API 接口
 

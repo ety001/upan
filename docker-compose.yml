@@ -1,13 +1,11 @@
-version: '3.8'
-
 services:
-  backend:
+  app:
     build:
       context: .
-      dockerfile: Dockerfile.backend
-    container_name: vpj-backend
+      dockerfile: Dockerfile
+    container_name: vpj-app
     ports:
-      - "8080:8080"
+      - "80:80"
     environment:
       - PORT=8080
       - FILE_MAX_SIZE=30
@@ -18,27 +16,7 @@ services:
       - ./storage/files:/app/storage/files
       - ./storage/db:/app/storage/db
     restart: unless-stopped
-    networks:
-      - vpj-network
-
-  frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile.frontend
-    container_name: vpj-frontend
-    ports:
-      - "80:80"
-    depends_on:
-      - backend
-    restart: unless-stopped
-    networks:
-      - vpj-network
-
-networks:
-  vpj-network:
-    driver: bridge
 
 volumes:
   files:
   database:
-
