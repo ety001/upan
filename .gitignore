@@ -32,6 +32,12 @@ storage/db/*
 !storage/files/.gitkeep
 !storage/db/.gitkeep
 
+# Backend storage (test files)
+backend/storage/files/*
+backend/storage/db/*
+!backend/storage/files/.gitkeep
+!backend/storage/db/.gitkeep
+
 # Node
 node_modules/
 npm-debug.log*
