@@ -34,7 +34,7 @@ COPY frontend/ ./
 RUN npm run build
 
 # Final stage
-FROM alpine:latest
+FROM alpine:3.19
 
 # Install dependencies
 RUN apk --no-cache add \
