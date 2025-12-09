@@ -23,10 +23,16 @@ func main() {
 		log.Fatalf("Failed to initialize database: %v", err)
 	}
 
-	// Start file cleaner
-	cleaner := tasks.NewCleaner()
-	cleaner.Start()
-	defer cleaner.Stop()
+	// Initialize and start task scheduler
+	scheduler := tasks.NewScheduler()
+	
+	// Register tasks
+	fileCleaner := tasks.NewFileCleanerTask()
+	scheduler.Register(fileCleaner)
+	
+	// Start scheduler
+	scheduler.Start()
+	defer scheduler.Stop()
 
 	// Setup router
 	router := gin.Default()
