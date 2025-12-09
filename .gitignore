@@ -11,6 +11,9 @@
 *.test
 *.out
 go.work
+
+# Backend build outputs
+backend/bin/
 backend/server
 
 # Dependencies

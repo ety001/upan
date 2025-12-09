@@ -14,7 +14,7 @@ RUN go mod download
 COPY backend/ ./
 
 # Update go.mod and build the application
-RUN go mod tidy && CGO_ENABLED=1 GOOS=linux go build -a -installsuffix cgo -o server ./cmd/server
+RUN mkdir -p bin && go mod tidy && CGO_ENABLED=1 GOOS=linux go build -a -installsuffix cgo -o bin/server ./cmd/server
 
 # Build frontend
 FROM node:20-alpine AS frontend-builder
@@ -47,7 +47,7 @@ RUN apk --no-cache add \
 WORKDIR /app
 
 # Copy backend binary
-COPY --from=backend-builder /app/backend/server ./backend/server
+COPY --from=backend-builder /app/backend/bin/server ./backend/bin/server
 
 # Copy frontend build
 COPY --from=frontend-builder /app/frontend/dist ./frontend/dist
@@ -65,7 +65,7 @@ RUN mkdir -p /app/storage/files /app/storage/db /var/log/supervisor
 RUN mkdir -p /var/log/nginx /var/cache/nginx /var/run/nginx
 
 # Set permissions
-RUN chmod +x /app/backend/server
+RUN chmod +x /app/backend/bin/server
 
 # Expose ports
 EXPOSE 80
