@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vpj-app
+    ports:
+      - "80:80"
+    environment:
+      - PORT=8080
+      - FILE_MAX_SIZE=30
+      - FILE_EXPIRE_TIME=6
+      - STORAGE_PATH=/app/storage/files
+      - DB_PATH=/app/storage/db/database.db
+    volumes:
+      - ./storage/files:/app/storage/files
+      - ./storage/db:/app/storage/db
+    restart: unless-stopped
+
+volumes:
+  files:
+  database:

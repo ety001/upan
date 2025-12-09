@@ -1,0 +1,34 @@
+# Build stage
+FROM golang:1.21-alpine AS builder
+
+WORKDIR /app
+
+# Copy go mod files
+COPY backend/go.mod backend/go.sum ./
+RUN go mod download
+
+# Copy source code
+COPY backend/ ./
+
+# Build the application
+RUN CGO_ENABLED=1 GOOS=linux go build -a -installsuffix cgo -o server ./cmd/server
+
+# Final stage
+FROM alpine:latest
+
+RUN apk --no-cache add ca-certificates sqlite
+
+WORKDIR /app
+
+# Copy the binary from builder
+COPY --from=builder /app/server .
+
+# Create storage directories
+RUN mkdir -p /app/storage/files /app/storage/db
+
+# Expose port
+EXPOSE 8080
+
+# Run the application
+CMD ["./server"]
+
