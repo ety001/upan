@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { uploadFile, downloadFile } from '../api/client'
 
 interface UpanProps {
@@ -11,7 +11,7 @@ export default function Upan({ fileMaxSize, fileExpireTime }: UpanProps) {
   const [uploadStatus, setUploadStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
   const [uploading, setUploading] = useState(false)
 
-  const handleFileUpload = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFileUpload = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setUploadStatus(null)
     setUploading(true)
@@ -51,7 +51,7 @@ export default function Upan({ fileMaxSize, fileExpireTime }: UpanProps) {
           message: result.error || '上传失败' 
         })
       }
-    } catch (error) {
+    } catch {
       setUploadStatus({ 
         type: 'error', 
         message: '上传失败，请重试' 
