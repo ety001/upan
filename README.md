@@ -5,7 +5,7 @@
 ## 技术栈
 
 - **后端**: Go + Gin + GORM + SQLite
-- **前端**: React + TypeScript + Vite + Tailwind CSS 3
+- **前端**: React + TypeScript + Vite + Tailwind CSS 4
 - **容器化**: Docker + Docker Compose
 
 ## 功能特性
@@ -63,6 +63,10 @@ cd frontend
 npm install
 npm run dev
 ```
+
+样式使用 Tailwind CSS v4，经 `@tailwindcss/vite` 插件集成（见 `frontend/vite.config.ts`）。v4 为 CSS-first 配置：样式入口 `frontend/src/index.css` 仅一行 `@import "tailwindcss";`，仓库不再包含 `tailwind.config.js` 与 `postcss.config.js`，class 扫描（content）由 v4 自动检测。
+
+已接受的 v4 视觉变化：默认调色板改为 OKLCH 定义，饱和色（blue/red/green 系）有轻微色移（ΔE00 约 1.3~2.7，仅并排对比时可辨）；输入框 placeholder 颜色显式锁定为 `placeholder:text-gray-400`；按钮显式 `cursor-pointer`。浏览器最低要求见 [DEPLOY.md](DEPLOY.md)。
 
 ## 使用 Docker
 

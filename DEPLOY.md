@@ -85,6 +85,14 @@ tail -f /var/log/supervisor/nginx.out.log
 - `/app/storage/files`: 上传的文件
 - `/app/storage/db`: SQLite 数据库
 
+## 浏览器要求
+
+前端基于 Tailwind CSS v4 构建，要求现代浏览器（v4 所依赖的 CSS 特性）：
+
+- Chrome 111+
+- Safari 16.4+
+- Firefox 128+
+
 ## 健康检查
 
 ```bash
