@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+  pull_request:
 
 jobs:
   docker-build-push:
@@ -32,7 +33,7 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           context: .
-          push: true
+          push: ${{ github.event_name == 'push' }}
           tags: |
             ghcr.io/ety001/upan:latest
             ghcr.io/ety001/upan:latest-${{ env.SHORT_SHA }}
