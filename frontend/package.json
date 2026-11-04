@@ -26,6 +26,6 @@
     "globals": "^17.11.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^5.9.3",
-    "vite": "^6.4.3"
+    "vite": "^6.4.5"
   }
 }
